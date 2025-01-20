@@ -1,0 +1,69 @@
+plugins {
+    id "com.android.application"
+    // START: FlutterFire Configuration
+    id 'com.google.gms.google-services'
+    // END: FlutterFire Configuration
+    id "kotlin-android"
+    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+android {
+    // 실제 사용하는 패키지명 (namespace)
+    namespace = "com.example.untitled"
+
+    // compileSdkVersion
+    // Flutter 프로젝트에서는 일반적으로 flutter.compileSdkVersion이 자동 설정됩니다.
+    // 필요하다면 숫자로 직접 지정도 가능: compileSdk = 33
+    compileSdk = flutter.compileSdkVersion
+
+    // NDK를 사용한다면 버전도 Flutter가 자동 관리
+    ndkVersion = flutter.ndkVersion
+
+    defaultConfig {
+        // 고유 Application ID
+        applicationId = "com.example.untitled"
+
+        // 여기서 Flutter가 제공하는 변수를 사용해도 되지만,
+        // Firebase Auth 문제로 직접 23으로 설정할 수도 있습니다.
+        // flutter.minSdkVersion -> 이 값이 21인 경우가 많으므로 23으로 변경
+        // 1) Flutter가 자동 관리하는 변수를 사용:
+        //    minSdk = flutter.minSdkVersion
+        //
+        // 2) 직접 지정(23):
+        minSdk = 23
+
+        // targetSdkVersion
+        targetSdk = flutter.targetSdkVersion
+
+        // 앱 버전 코드와 버전명
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+    }
+
+    // 자바, 코틀린 호환성 옵션
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+
+    // buildTypes 설정
+    buildTypes {
+        release {
+            // 실제 서비스 배포 시에는 signingConfigs.release 등을 적용
+            signingConfig = signingConfigs.debug
+        }
+    }
+}
+
+// Flutter Gradle 설정
+flutter {
+    source = "../.."
+}
+
+// Firebase를 사용하기 위해 최하단에 추가 (플러그인 적용)
+apply plugin: 'com.google.gms.google-services'
